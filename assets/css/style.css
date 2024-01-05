@@ -32,6 +32,7 @@ header {
 }
 
 .row {
+  width: 100%;
   white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;
@@ -69,4 +70,9 @@ header {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+table {
+  margin-top: 40px;
+  width: 100%;
 }
