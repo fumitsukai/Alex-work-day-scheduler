@@ -1,10 +1,6 @@
 const saveBtn = $('.saveBtn');
-const textEl = document.querySelector('.row');
+const textEl = $('.textarea');
 const currentDayEl = $('#currentDay');
-
-saveBtn.on('click', function() {
-    console.log(textEl.value);
-})
 
 //Header
 //display current day
@@ -13,5 +9,36 @@ const currentDay = dayjs();
 currentDayEl.text(currentDay);
 
 //Table
-//Take value and save it to local storage, display in the text area
 //based on time change the colors of the textarea rows
+ function updateHoursChange() {
+    //store current hour in a variable so we can compare with the id of the textarea
+    var currentTime = dayjs().format('H');
+    //loop through the textarea elements to check them one by one with the current time
+    for (let i = 0; i < textEl.length; i++) {
+
+        //get element id as a string
+        var elementID = textEl[i].id;
+        //get element by id
+        var manipulateID = document.getElementById(elementID);
+        //remove any old classes
+        $(elementID).removeClass(".present .past .future");
+
+        //apply new class
+
+        if(elementID < currentTime) {
+            $(manipulateID).addClass('past');
+        } else if (elementID > currentTime) {
+            $(manipulateID).addClass('future');
+        } else {
+            $(manipulateID).addClass('present');
+        }
+    }
+
+ }
+
+//Take value and save it to local storage, display in the text area
+saveBtn.on('click', function () {
+    console.log(textEl.value);
+})
+
+updateHoursChange();
