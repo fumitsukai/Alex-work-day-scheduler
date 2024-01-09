@@ -51,6 +51,7 @@ $(function () {
                     };
                     savedDataArr.push(data);
                     localStorage.setItem('data', JSON.stringify(savedDataArr));
+                    addedToStorage();
                 }
             }
         })
@@ -74,5 +75,17 @@ $(function () {
     //clear scheduler
     clear.on('click', function () {
         localStorage.clear();
+        location.reload();
     })
 })
+
+function addedToStorage() {
+    const pEl = $('<p>');
+    pEl.text("Added to localStorage!");
+    $('header').append(pEl);
+    pEl.css({"color": "green","padding-top":"50px"});
+    setTimeout(function() {
+        location.reload();
+    },500);
+    
+}
