@@ -29,6 +29,7 @@ header {
 .time-block {
   text-align: center;
   border-radius: 15px;
+  width: 10%;
 }
 
 .row {
@@ -75,4 +76,23 @@ header {
 table {
   margin-top: 40px;
   width: 100%;
+}
+
+#clear {
+  margin:30px 0 20px 0;
+  background-color:#06aed5;
+  border-radius: 10px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.myContainer {
+  position: relative;
+}
+
+td:nth-child(3) {
+  width: 10%;
 }
