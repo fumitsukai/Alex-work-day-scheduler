@@ -1,6 +1,7 @@
 const saveBtn = $('.saveBtn');
 const textEl = $('.textarea');
 const currentDayEl = $('#currentDay');
+const clear = $('#clear');
 
 //Header
 //display current day
@@ -52,6 +53,24 @@ saveBtn.each(function(btn) {
         }
     })
 })
- 
+
+//get from storage
+const savedData = JSON.parse(localStorage.getItem('data'));
+
 //update colours every hour
 setInterval(updateHoursChange(), (1000 * 60) * 60);
+
+for (let i = 0; i < textEl.length; i++) {
+    for (let j = 0; j < savedData.length; j++) {
+        if (textEl[i].id === savedData[j].hour) {
+            textEl[i].value = savedData[j].text;
+        }
+    }
+ }
+
+
+
+
+clear.on('click', function() {
+    localStorage.clear();
+})
