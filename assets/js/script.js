@@ -11,8 +11,8 @@ $(function () {
         const currentDay = dayjs();
         currentDayEl.text(currentDay);
     }
-
-    setInterval(displaytime(), 1000);
+    displaytime();
+    setInterval(displaytime, 1000);
 
     //Table
     //based on time change the colors of the textarea rows
@@ -40,28 +40,44 @@ $(function () {
     }
     //Take value and save it to local storage, display in the text area
     //loop through buttons and if the name matches the id of the text area put it into storage
-    saveBtn.each(function (btn) {
-        saveBtn[btn].addEventListener('click', function () {
-            for (let i = 0; i < textEl.length; i++) {
-                if (saveBtn[btn].getAttribute('name') === textEl[i].id) {
-                    const savedDataArr = JSON.parse(localStorage.getItem('data')) || [];
-                    const data = {
-                        hour: textEl[i].id,
-                        text: textEl[i].value.trim()
-                    };
-                    savedDataArr.push(data);
-                    localStorage.setItem('data', JSON.stringify(savedDataArr));
-                    addedToStorage();
-                }
-            }
-        })
+    // saveBtn.each(function (btn) {
+    //     saveBtn[btn].addEventListener('click', function () {
+    //         for (let i = 0; i < textEl.length; i++) {
+    //             if (saveBtn[btn].getAttribute('name') === textEl[i].id) {
+    //                 const savedDataArr = JSON.parse(localStorage.getItem('data')) || [];
+    //                 const data = {
+    //                     hour: textEl[i].id,
+    //                     text: textEl[i].value.trim()
+    //                 };
+    //                 savedDataArr.push(data);
+    //                 localStorage.setItem('data', JSON.stringify(savedDataArr));
+    //                 addedToStorage();
+    //             }
+    //         }
+    //     })
+    // })
+
+    saveBtn.on('click', function () {
+        var thisBtn = $(this);
+        var textareaID = thisBtn.attr('name');
+        var textarea = $('#' + textareaID);
+        const savedDataArr = JSON.parse(localStorage.getItem('data')) || [];
+        const data = {
+            hour: textareaID,
+            text: textarea.val().trim()
+        };
+        savedDataArr.push(data);
+        localStorage.setItem('data', JSON.stringify(savedDataArr));
+        addedToStorage();
+
     })
 
     //get from storage
     const savedData = JSON.parse(localStorage.getItem('data'));
 
     //update colours every hour
-    setInterval(updateHoursChange(), (1000 * 60) * 60);
+    updateHoursChange();
+    setInterval(updateHoursChange, (1000 * 60) * 60);
 
     //check every text area for matching hour in the local storage object array and if they match show the text
     for (let i = 0; i < textEl.length; i++) {
@@ -77,15 +93,15 @@ $(function () {
         localStorage.clear();
         location.reload();
     })
-})
 
-function addedToStorage() {
-    const pEl = $('<p>');
-    pEl.text("Added to localStorage!");
-    $('header').append(pEl);
-    pEl.css({"color": "green","padding-top":"50px"});
-    setTimeout(function() {
-        location.reload();
-    },500);
-    
-}
+
+    function addedToStorage() {
+        const pEl = $('<p>');
+        pEl.text("Added to localStorage!");
+        $('header').append(pEl);
+        pEl.css({ "color": "green", "padding-top": "50px" });
+        setTimeout(function () {
+            location.reload();
+        }, 500);
+    }
+})
